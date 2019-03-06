@@ -1,1 +1,1 @@
-# imglib2-lazy-algorithm
+# fiji-plugin
