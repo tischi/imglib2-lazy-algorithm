@@ -42,7 +42,7 @@
 	</developers>
 	<contributors>
 		<contributor>
-			<name>TODO</name>
+			<name>Nicolas Chiaruttini</name>
 		</contributor>
 	</contributors>
 
@@ -77,6 +77,15 @@
 	</properties>
 
 
+	<distributionManagement>
+		<repository>
+			<id>bintray-tischi-snapshots</id>
+			<name>tischi-snapshots</name>
+			<url>https://api.bintray.com/maven/tischi/snapshots/bdv-utils/;publish=1</url>
+		</repository>
+	</distributionManagement>
+
+
 	<repositories>
 		<!-- NB: for SciJava dependencies -->
 		<repository>
@@ -105,6 +114,12 @@
 		<dependency>
 			<groupId>net.imagej</groupId>
 			<artifactId>ij</artifactId>
+		</dependency>
+
+
+		<dependency>
+			<groupId>sc.fiji</groupId>
+			<artifactId>bigdataviewer-vistools</artifactId>
 		</dependency>
 
 	</dependencies>
