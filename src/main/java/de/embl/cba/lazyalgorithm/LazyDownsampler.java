@@ -4,6 +4,7 @@ import de.embl.cba.lazyalgorithm.converter.AverageFilterConverter;
 import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.type.NativeType;
 import net.imglib2.type.numeric.RealType;
+import net.imglib2.view.SubsampleIntervalView;
 import net.imglib2.view.Views;
 
 import java.util.Arrays;
@@ -20,7 +21,7 @@ public class LazyDownsampler< R extends RealType< R > & NativeType< R > >
 		this.span = span;
 	}
 
-	public  RandomAccessibleInterval< R > get()
+	public RandomAccessibleInterval< R > getDownsampledView()
 	{
 		final AverageFilterConverter< R > averageFilterConverter =
 				new AverageFilterConverter<>( rai, span );
@@ -28,7 +29,10 @@ public class LazyDownsampler< R extends RealType< R > & NativeType< R > >
 		final long[] neighborhoodCenterDistance =
 				Arrays.stream( span ).map( x -> 2 * x + 1 ).toArray();
 
-		return Views.subsample( averageFilterConverter.averageView(), neighborhoodCenterDistance );
+		final SubsampleIntervalView< R > subsample = Views.subsample(
+				averageFilterConverter.averageView(), neighborhoodCenterDistance );
+
+		return subsample;
 	}
 
 }
