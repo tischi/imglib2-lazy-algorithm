@@ -1,6 +1,6 @@
 package de.embl.cba.lazyalgorithm.converter;
 
-import de.embl.cba.neighborhood.RectangleShape;
+import de.embl.cba.neighborhood.RectangleShape2;
 import net.imglib2.RandomAccessible;
 import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.algorithm.neighborhood.Neighborhood;
@@ -30,7 +30,7 @@ public class AverageFilterConverter < R extends RealType< R > >
 
 	public RandomAccessibleInterval< R > averageView()
 	{
-		Shape shape = new RectangleShape( span, false );
+		Shape shape = new RectangleShape2( span, false );
 
 		final RandomAccessible< Neighborhood< R > > nra =
 				shape.neighborhoodsRandomAccessible( Views.extendBorder( rai ) );

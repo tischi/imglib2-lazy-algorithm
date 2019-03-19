@@ -1,6 +1,6 @@
 package de.embl.cba.lazyalgorithm.converter;
 
-import de.embl.cba.neighborhood.RectangleShape;
+import de.embl.cba.neighborhood.RectangleShape2;
 import net.imglib2.Cursor;
 import net.imglib2.RandomAccessible;
 import net.imglib2.RandomAccessibleInterval;
@@ -33,7 +33,7 @@ public class TestFilterConverter< R extends RealType< R > & NativeType< R > >
 
 	public RandomAccessibleInterval< R > getView()
 	{
-		Shape shape = new RectangleShape( span, false );
+		Shape shape = new RectangleShape2( span, false );
 
 		final RandomAccessible< Neighborhood< R > > nra =
 				shape.neighborhoodsRandomAccessible( Views.extendBorder( rai ) );
