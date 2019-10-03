@@ -1,5 +1,6 @@
 package de.embl.cba.lazyalgorithm;
 
+import de.embl.cba.lazyalgorithm.view.NeighborhoodViews;
 import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.type.NativeType;
 import net.imglib2.type.numeric.RealType;
@@ -22,14 +23,12 @@ public class LazyDownsampler< R extends RealType< R > & NativeType< R > >
 
 	public RandomAccessibleInterval< R > getDownsampledView()
 	{
-		final AverageView< R > averageView =
-				new AverageView<>( rai, span );
-
 		final long[] neighborhoodCenterDistance =
 				Arrays.stream( span ).map( x -> 2 * x + 1 ).toArray();
 
 		final SubsampleIntervalView< R > subsample = Views.subsample(
-				averageView.averageView(), neighborhoodCenterDistance );
+				NeighborhoodViews.averageView( rai, span ),
+				neighborhoodCenterDistance );
 
 		return subsample;
 	}

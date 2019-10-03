@@ -57,7 +57,7 @@ public class NeighborhoodViews
 		return neighborhoodConvertedView(
 				rai,
 				span,
-				new NeighborhoodBoundaryConverter< R >() );
+				new NeighborhoodBoundaryConverter< R >( rai ) );
 	}
 
 
