@@ -17,16 +17,29 @@ public class TestLabelMaskToBoundaryImage
 	@Test
 	public < R extends RealType< R > > void run()
 	{
-		final ImagePlus imagePlus = IJ.openImage( TestLabelMaskToBoundaryImage.class.getResource( "../mask-lbl.zip" ).getFile() );
+		final ImagePlus imagePlus =
+				IJ.openImage( TestLabelMaskToBoundaryImage.class.getResource( "../test-data/mask-lbl.zip" ).getFile() );
 
 		final Img< R > wrap = ImageJFunctions.wrapReal( imagePlus );
 
-		final BdvStackSource< R > image = BdvFunctions.show( wrap, "image", BdvOptions.options().is2D() );
+		final BdvStackSource< R > image =
+				BdvFunctions.show(
+						wrap,
+						"image",
+						BdvOptions.options().is2D() );
+
 		image.setDisplayRange( 0, 100 );
 
-		final RandomAccessibleInterval< R > boundaryView = NeighborhoodViews.nonZeroBoundariesView( wrap, new long[]{ 2, 2 } );
+		// this is the relevant line of code
+		final RandomAccessibleInterval< R > boundaryView =
+				NeighborhoodViews.nonZeroBoundariesView( wrap, 2);
 
-		final BdvStackSource< R > boundary = BdvFunctions.show( boundaryView, "boundary", BdvOptions.options().is2D() );
+		final BdvStackSource< R > boundary =
+				BdvFunctions.show(
+						boundaryView,
+						"boundary",
+						BdvOptions.options().is2D().addTo( image.getBdvHandle() ) );
+
 		boundary.setDisplayRange( 0, 100 );
 	}
 

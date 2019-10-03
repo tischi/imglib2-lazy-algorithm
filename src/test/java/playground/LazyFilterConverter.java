@@ -1,4 +1,4 @@
-package de.embl.cba.lazyalgorithm.converter;
+package playground;
 
 import de.embl.cba.neighborhood.RectangleShape2;
 import net.imglib2.Cursor;
@@ -12,7 +12,14 @@ import net.imglib2.type.numeric.RealType;
 import net.imglib2.util.Util;
 import net.imglib2.view.Views;
 
-public class TestFilterConverter< R extends RealType< R > & NativeType< R > >
+
+/**
+ * Class for demonstration and discussion purposes.
+ * Is not actually used.
+ *
+ * @param <R>
+ */
+public class LazyFilterConverter< R extends RealType< R > & NativeType< R > >
 {
 
 	final RandomAccessibleInterval< R > rai;
@@ -24,12 +31,11 @@ public class TestFilterConverter< R extends RealType< R > & NativeType< R > >
 	 * The regions which are averaged are span * 2 + 1, for each dimension.
 	 * This ensures that the rectangle is symmetric around the central pixel.
 	 */
-	public TestFilterConverter( RandomAccessibleInterval< R > input, long[] span )
+	public LazyFilterConverter( RandomAccessibleInterval< R > input, long[] span )
 	{
 		this.rai = input;
 		this.span = span;
 	}
-
 
 	public RandomAccessibleInterval< R > getView()
 	{
@@ -82,6 +88,5 @@ public class TestFilterConverter< R extends RealType< R > & NativeType< R > >
 
 		output.setReal( sum / neighborhood.size() );
 	}
-
 
 }

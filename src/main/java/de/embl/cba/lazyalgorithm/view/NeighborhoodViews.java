@@ -30,7 +30,7 @@ public class NeighborhoodViews
 	/**
 	 * Provides an averaged filtered view on the input data.
 	 *
-	 * The regions which are averaged are span * 2 + 1, for each dimension.
+	 * The regions which are averaged are halfWidths * 2 + 1, for each dimension.
 	 * This ensures that the rectangle is symmetric around the central pixel.
 	 *
 	 * TODO: also enable even kernels (also in BDT2) ?!
@@ -38,12 +38,12 @@ public class NeighborhoodViews
 	public static < R extends RealType< R > >
 	RandomAccessibleInterval< R > rectangleAverageView(
 			RandomAccessibleInterval< R > rai,
-			long[] span )
+			long[] halfWidths )
 	{
 		return neighborhoodConvertedView(
 				rai,
 				new NeighborhoodAverageConverter(),
-				new RectangleShape2( span, false ) );
+				new RectangleShape2( halfWidths, false ) );
 	}
 
 
@@ -53,10 +53,7 @@ public class NeighborhoodViews
 	 * neighborhood has a different value are keeping their value.
 	 * Other pixels are set to zero.
 	 *
-	 * The regions which are averaged are span * 2 + 1, for each dimension.
-	 * This ensures that the rectangle is symmetric around the central pixel.
-	 *
-	 * TODO: also enable even kernels (also in BDT2) ?!
+	 * TODO: also enable even kernels?!
 	 */
 	public static < R extends RealType< R > >
 	RandomAccessibleInterval< R > nonZeroBoundariesView(
