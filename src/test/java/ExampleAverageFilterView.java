@@ -19,7 +19,7 @@ public class ExampleAverageFilterView
 		BdvFunctions.show( rai, "input" );
 
 		final RandomAccessibleInterval< R > averageView =
-				NeighborhoodViews.averageView( rai, new long[]{ 5, 5, 5 } );
+				NeighborhoodViews.rectangleAverageView( rai, new long[]{ 5, 5, 5 } );
 
 		BdvFunctions.show( averageView, "average" );
 	}

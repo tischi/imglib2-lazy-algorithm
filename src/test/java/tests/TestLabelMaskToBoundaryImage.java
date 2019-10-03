@@ -24,7 +24,7 @@ public class TestLabelMaskToBoundaryImage
 		final BdvStackSource< R > image = BdvFunctions.show( wrap, "image", BdvOptions.options().is2D() );
 		image.setDisplayRange( 0, 100 );
 
-		final RandomAccessibleInterval< R > boundaryView = NeighborhoodViews.boundaryView( wrap, new long[]{ 2, 2 } );
+		final RandomAccessibleInterval< R > boundaryView = NeighborhoodViews.nonZeroBoundariesView( wrap, new long[]{ 2, 2 } );
 
 		final BdvStackSource< R > boundary = BdvFunctions.show( boundaryView, "boundary", BdvOptions.options().is2D() );
 		boundary.setDisplayRange( 0, 100 );

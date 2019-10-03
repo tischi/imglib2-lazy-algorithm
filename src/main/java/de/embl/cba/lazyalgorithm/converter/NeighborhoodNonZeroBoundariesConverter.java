@@ -9,12 +9,12 @@ import net.imglib2.converter.Converter;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.util.Intervals;
 
-public class NeighborhoodBoundaryConverter< R extends RealType< R > >
+public class NeighborhoodNonZeroBoundariesConverter< R extends RealType< R > >
 		implements Converter< Neighborhood< R >, R >
 {
 	private final RandomAccessibleInterval< R > rai;
 
-	public NeighborhoodBoundaryConverter( RandomAccessibleInterval< R > rai )
+	public NeighborhoodNonZeroBoundariesConverter( RandomAccessibleInterval< R > rai )
 	{
 		this.rai = rai;
 	}
@@ -23,6 +23,12 @@ public class NeighborhoodBoundaryConverter< R extends RealType< R > >
 	public void convert( Neighborhood< R > neighborhood, R output )
 	{
 		final double centerValue = getCenterValue( neighborhood );
+
+		if ( centerValue == 0 )
+		{
+			output.setZero();
+			return;
+		}
 
 		for ( R value : neighborhood )
 		{
@@ -34,6 +40,7 @@ public class NeighborhoodBoundaryConverter< R extends RealType< R > >
 		}
 
 		output.setZero();
+		return;
 	}
 
 	private double getCenterValue( Neighborhood< R > neighborhood )

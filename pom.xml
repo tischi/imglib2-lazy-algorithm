@@ -8,7 +8,7 @@
 		<relativePath>../pom-embl-cba</relativePath>
 	</parent>
 	<artifactId>imglib2-lazy-algorithm</artifactId>
-	<version>0.1.03</version>
+	<version>0.2.0</version>
 	<name>imglib2-lazy-algorithm</name>
 	<description>TODO</description>
 	<inceptionYear>2018</inceptionYear>
