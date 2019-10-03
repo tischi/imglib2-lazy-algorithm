@@ -1,6 +1,5 @@
 package de.embl.cba.lazyalgorithm;
 
-import de.embl.cba.lazyalgorithm.view.AverageView;
 import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.type.NativeType;
 import net.imglib2.type.numeric.RealType;

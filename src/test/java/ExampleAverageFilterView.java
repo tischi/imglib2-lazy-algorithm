@@ -1,5 +1,5 @@
 import bdv.util.BdvFunctions;
-import de.embl.cba.lazyalgorithm.view.AverageView;
+import de.embl.cba.lazyalgorithm.view.NeighborhoodViews;
 import net.imglib2.Cursor;
 import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.img.array.ArrayImgs;
@@ -19,7 +19,7 @@ public class ExampleAverageFilterView
 		BdvFunctions.show( rai, "input" );
 
 		final RandomAccessibleInterval< R > averageView =
-				 new AverageView<>( rai, new long[]{ 5, 5, 5 } ).averageView();
+				NeighborhoodViews.averageView( rai, new long[]{ 5, 5, 5 } );
 
 		BdvFunctions.show( averageView, "average" );
 	}
@@ -33,9 +33,7 @@ public class ExampleAverageFilterView
 		final Random random = new Random( 10 );
 		final Cursor< IntType > cursor = Views.iterable( input ).cursor();
 		while ( cursor.hasNext() )
-		{
 			cursor.next().set( random.nextInt( 65535 )  );
-		}
 
 		return (RandomAccessibleInterval) input;
 	}
