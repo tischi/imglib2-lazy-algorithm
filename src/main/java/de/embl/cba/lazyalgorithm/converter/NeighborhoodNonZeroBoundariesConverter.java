@@ -1,55 +1,56 @@
 package de.embl.cba.lazyalgorithm.converter;
 
 import net.imglib2.Cursor;
-import net.imglib2.Interval;
 import net.imglib2.RandomAccess;
-import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.algorithm.neighborhood.Neighborhood;
 import net.imglib2.converter.Converter;
 import net.imglib2.type.numeric.RealType;
-import net.imglib2.util.Intervals;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class NeighborhoodNonZeroBoundariesConverter< R extends RealType< R > >
 		implements Converter< Neighborhood< R >, R >
 {
-	private final RandomAccessibleInterval< R > rai;
-
-	public NeighborhoodNonZeroBoundariesConverter( RandomAccessibleInterval< R > rai )
-	{
-		this.rai = rai;
-	}
 
 	@Override
 	public void convert( Neighborhood< R > neighborhood, R output )
 	{
-		final double centerValue = getCenterValue( neighborhood );
+		long[] centrePosition = new long[ neighborhood.numDimensions() ];
+		neighborhood.localize( centrePosition );
 
-		if ( centerValue == 0 )
+		final Cursor< R > cursor = neighborhood.localizingCursor();
+
+		long[] position = new long[ neighborhood.numDimensions() ];
+		final ArrayList< Double > values = new ArrayList<>();
+
+		double centreValue = 0;
+
+		while ( cursor.hasNext() )
+		{
+			final double value = cursor.next().getRealDouble();
+			cursor.localize( position );
+			if ( Arrays.equals( centrePosition, position ) )
+				centreValue = value;
+			values.add( value );
+		}
+
+		if ( centreValue == 0 )
 		{
 			output.setZero();
 			return;
 		}
 
-		for ( R value : neighborhood )
+		for ( double value : values )
 		{
-			if ( value.getRealDouble() != centerValue )
+			if ( value != centreValue )
 			{
-				output.setReal( centerValue );
+				output.setReal( centreValue );
 				return;
 			}
 		}
 
 		output.setZero();
 		return;
-	}
-
-	private double getCenterValue( Neighborhood< R > neighborhood )
-	{
-		long[] centrePosition = new long[ neighborhood.numDimensions() ];
-		neighborhood.localize( centrePosition );
-
-		final RandomAccess< R > randomAccess = rai.randomAccess();
-		randomAccess.setPosition( centrePosition );
-		return randomAccess.get().getRealDouble();
 	}
 }
