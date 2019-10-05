@@ -1,3 +1,5 @@
+package tests;
+
 import bdv.util.BdvFunctions;
 import de.embl.cba.lazyalgorithm.view.NeighborhoodViews;
 import net.imglib2.Cursor;
@@ -6,22 +8,28 @@ import net.imglib2.img.array.ArrayImgs;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.integer.IntType;
 import net.imglib2.view.Views;
+import org.junit.Test;
 
 import java.util.Random;
 
-public class ExampleAverageFilterView
+public class TestNeighborhoodFilterViews < R extends RealType< R > >
 {
-	public static < R extends RealType< R > >
-	void main( String[] args )
+	public static void main( String[] args )
+	{
+		new TestNeighborhoodFilterViews().testBinnedView();
+	}
+
+	@Test
+	public void testBinnedView()
 	{
 		final RandomAccessibleInterval< R > rai = createRandomImage();
 
 		BdvFunctions.show( rai, "input" );
 
 		final RandomAccessibleInterval< R > averageView =
-				NeighborhoodViews.rectangleAverageView( rai, new long[]{ 5, 5, 5 } );
+				NeighborhoodViews.averageBinnedView( rai, new long[]{ 3, 3, 3 } );
 
-		BdvFunctions.show( averageView, "average" );
+		BdvFunctions.show( averageView, "binned" );
 	}
 
 

@@ -30,28 +30,27 @@ public class RectangleShape2 implements Shape
 
 	/**
 	 *
-	 * Note that the width of the rectangle along each dimension will be
-	 * 2 * span + 1
-	 *
-	 * @param halfWidths
+	 * @param span
 	 * @param skipCenter
 	 */
-	public RectangleShape2( final long[] halfWidths, final boolean skipCenter )
+	public RectangleShape2( final long[] span, final boolean skipCenter )
 	{
-		this.spanInterval = createSpanInterval( halfWidths );
+		this.spanInterval = createSpanInterval( span );
 		this.skipCenter = skipCenter;
 	}
 
-	private FinalInterval createSpanInterval( long[] hlafWidths )
+	private FinalInterval createSpanInterval( long[] span )
 	{
-		int n = hlafWidths.length;
+		int n = span.length;
 		final long[] min = new long[ n ];
 		final long[] max = new long[ n ];
+
 		for ( int d = 0; d < n; ++d )
 		{
-			min[ d ] = -hlafWidths[d];
-			max[ d ] = hlafWidths[d];
+			min[ d ] = - span[ d ] / 2;
+			max[ d ] = min[ d ] + span[ d ] - 1;
 		}
+
 		return new FinalInterval( min, max );
 	}
 

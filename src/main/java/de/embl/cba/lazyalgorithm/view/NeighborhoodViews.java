@@ -19,7 +19,7 @@ import net.imglib2.view.Views;
 public class NeighborhoodViews implements View
 {
 	public static < R extends RealType< R > >
-	RandomAccessibleInterval< R > averagedBinnedView(
+	RandomAccessibleInterval< R > averageBinnedView(
 			RandomAccessibleInterval< R > rai,
 			long[] span )
 	{
@@ -30,21 +30,16 @@ public class NeighborhoodViews implements View
 
 	/**
 	 * Provides an averaged filtered view on the input data.
-	 *
-	 * The regions which are averaged are halfWidths * 2 + 1, for each dimension.
-	 * This ensures that the rectangle is symmetric around the central pixel.
-	 *
-	 * TODO: also enable even kernels (also in BDT2) ?!
 	 */
 	public static < R extends RealType< R > >
 	RandomAccessibleInterval< R > rectangleAverageView(
 			RandomAccessibleInterval< R > rai,
-			long[] halfWidths )
+			long[] span )
 	{
 		return neighborhoodConvertedView(
 				rai,
 				new NeighborhoodAverageConverter(),
-				new RectangleShape2( halfWidths, false ) );
+				new RectangleShape2( span, false ) );
 	}
 
 
